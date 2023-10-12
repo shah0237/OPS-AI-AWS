@@ -1,2 +1,22 @@
 #Built script while at cisco, presented to network engineer so they can simulate link flapping by turning port on and off at set interval timers, will repeat any xr command given in commands.txt file
 
+from netmiko import ConnectHandler
+from paramiko.ssh_exception import AuthenticationException
+import getpass
+import time
+import sys
+
+# Check if script is run with correct number of arguments
+if len(sys.argv) != 2:
+    print("Usage: python script_name.py commands.txt")
+    sys.exit(1)
+
+# Get file name from command line arguments
+filename = sys.argv[1]
+
+# Prompt user for input
+username_host = input("Please enter your username@hostname: ")
+username, hostname = username_host.split("@")
+password = getpass.getpass("Please enter your password: ")
+repetitions = int(input("Please enter the number of times you wish to repeat the commands: "))
+
